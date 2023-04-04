@@ -4,14 +4,11 @@ import { Canvas, useThree } from "@react-three/fiber";
 import { RootContainer, Text, SVG, Box, Image, Container } from "@coconut-xr/koestlich";
 import loadYogaSync from "yoga-wasm-web"
 import { PerspectiveCamera } from "three";
+import imagePath from "./assets/icon.png"
 
 async function loadYoga() {
   return (loadYogaSync as any)()
 }
-
-const imageClass = {
-  height: 0.2,
-};
 
 export default function App() {
   return (
@@ -35,7 +32,7 @@ function UI() {
     <Suspense>
       <RootContainer loadYoga={loadYoga} width={ratio} height={1} gapColumn={0.1} gapRow={0.1} padding={0.1} backgroundColor="red">
         <Container backgroundColor="blue" flexGrow={1}></Container>
-        <Container backgroundColor="green" flexGrow={1}></Container>
+        <Image url={imagePath} flexGrow={1}></Image>
       </RootContainer>
     </Suspense>
   );
