@@ -6,6 +6,9 @@ import loadYogaSync from "yoga-wasm-web"
 import { PerspectiveCamera } from "three";
 import imagePath from "./assets/icon.png"
 
+const imageUrl = "./assets/icon.png";
+console.log(`imP: ${imagePath}, source: ${JSON.stringify(RNImage.resolveAssetSource(imagePath))}, uri: ${imageUrl}`);
+
 async function loadYoga() {
   return (loadYogaSync as any)()
 }
@@ -32,7 +35,11 @@ function UI() {
     <Suspense>
       <RootContainer loadYoga={loadYoga} width={ratio} height={1} gapColumn={0.1} gapRow={0.1} padding={0.1} backgroundColor="red">
         <Container backgroundColor="blue" flexGrow={1}></Container>
+        {/*
+          * Move any following lines outside the comment block to test.
         <Image url={imagePath} flexGrow={1}></Image>
+        <Image url={'./assets/icon.png'} flexGrow={1}></Image>
+          */}
       </RootContainer>
     </Suspense>
   );
