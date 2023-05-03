@@ -1,5 +1,6 @@
 import React, { Suspense } from "react";
 import { StyleSheet, View } from "react-native";
+import { Image as RNImage } from 'react-native';
 import { Canvas, useThree } from "@react-three/fiber";
 import { RootContainer, Text, SVG, Box, Image, Container } from "@coconut-xr/koestlich";
 import loadYogaSync from "yoga-wasm-web"
@@ -16,6 +17,7 @@ async function loadYoga() {
 export default function App() {
   return (
     <View style={styles.container}>
+      <RNImage source={imagePath} style={{ width: 128, height: 128 }} />
       <Canvas gl={{ localClippingEnabled: true }}>
         <pointLight intensity={0.5} position={[0, 0, -1]} />
         <ambientLight intensity={0.5} />
