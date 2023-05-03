@@ -1,17 +1,37 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useRef } from "react";
 import { StyleSheet, View } from "react-native";
 import { Image as RNImage } from 'react-native';
-import { Canvas, useThree } from "@react-three/fiber";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { RootContainer, Text, SVG, Box, Image, Container } from "@coconut-xr/koestlich";
 import loadYogaSync from "yoga-wasm-web"
 import { PerspectiveCamera } from "three";
 import imagePath from "./assets/icon.png"
+import { useTexture } from "@react-three/drei";
 
 const imageUrl = "./assets/icon.png";
 console.log(`imP: ${imagePath}, source: ${JSON.stringify(RNImage.resolveAssetSource(imagePath))}, uri: ${imageUrl}`);
 
 async function loadYoga() {
   return (loadYogaSync as any)()
+}
+
+function
+DaBox(props)
+{
+  const mesh = useRef(null);
+  const texture = useTexture(imagePath)
+  useFrame((state, delta) => (mesh.current.rotation.y += 0.007));
+
+  return (
+    <mesh
+      {...props}
+      ref={mesh}
+      scale={1}
+    >
+      <boxGeometry args={[0.5, 0.5, 0.04]} />
+      <meshBasicMaterial map={texture} />
+    </mesh>
+  );
 }
 
 export default function App() {
@@ -21,6 +41,9 @@ export default function App() {
       <Canvas gl={{ localClippingEnabled: true }}>
         <pointLight intensity={0.5} position={[0, 0, -1]} />
         <ambientLight intensity={0.5} />
+        <Suspense>
+          <DaBox />
+        </Suspense>
         <UI />
       </Canvas>
     </View>
