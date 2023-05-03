@@ -6,6 +6,7 @@ import { RootContainer, Text, SVG, Box, Image, Container } from "@coconut-xr/koe
 import loadYogaSync from "yoga-wasm-web"
 import { PerspectiveCamera } from "three";
 import image from "./assets/icon.png"
+import useControls from 'r3f-native-orbitcontrols';
 import { useTexture } from "@react-three/drei";
 
 const imageUrl = "./assets/icon.png";
@@ -35,12 +36,15 @@ DaBox(props)
 }
 
 export default function App() {
+  const [OrbitControls, events] = useControls();
+
   return (
-    <View style={styles.container}>
+    <View style={styles.container} {...events} >
       <RNImage source={image} style={{ width: 128, height: 128 }} />
       <Canvas gl={{ localClippingEnabled: true }}>
         <pointLight intensity={0.5} position={[0, 0, -1]} />
         <ambientLight intensity={0.5} />
+        <OrbitControls />
         <Suspense>
           <DaBox />
         </Suspense>
