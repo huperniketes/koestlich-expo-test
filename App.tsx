@@ -5,11 +5,11 @@ import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { RootContainer, Text, SVG, Box, Image, Container } from "@coconut-xr/koestlich";
 import loadYogaSync from "yoga-wasm-web"
 import { PerspectiveCamera } from "three";
-import imagePath from "./assets/icon.png"
+import image from "./assets/icon.png"
 import { useTexture } from "@react-three/drei";
 
 const imageUrl = "./assets/icon.png";
-console.log(`imP: ${imagePath}, source: ${JSON.stringify(RNImage.resolveAssetSource(imagePath))}, uri: ${imageUrl}`);
+console.log(`imP: ${image}, source: ${JSON.stringify(RNImage.resolveAssetSource(image))}, uri: ${imageUrl}`);
 
 async function loadYoga() {
   return (loadYogaSync as any)()
@@ -19,7 +19,7 @@ function
 DaBox(props)
 {
   const mesh = useRef(null);
-  const texture = useTexture(imagePath)
+  const texture = useTexture(image)
   useFrame((state, delta) => (mesh.current.rotation.y += 0.007));
 
   return (
@@ -37,7 +37,7 @@ DaBox(props)
 export default function App() {
   return (
     <View style={styles.container}>
-      <RNImage source={imagePath} style={{ width: 128, height: 128 }} />
+      <RNImage source={image} style={{ width: 128, height: 128 }} />
       <Canvas gl={{ localClippingEnabled: true }}>
         <pointLight intensity={0.5} position={[0, 0, -1]} />
         <ambientLight intensity={0.5} />
@@ -62,7 +62,7 @@ function UI() {
         <Container backgroundColor="blue" flexGrow={1}></Container>
         {/*
           * Move any following lines outside the comment block to test.
-        <Image url={imagePath} flexGrow={1}></Image>
+        <Image url={image} flexGrow={1}></Image>
         <Image url={'./assets/icon.png'} flexGrow={1}></Image>
           */}
       </RootContainer>
