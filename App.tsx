@@ -8,8 +8,14 @@ import { PerspectiveCamera } from "three";
 import image from "./assets/icon.png"
 import useControls from 'r3f-native-orbitcontrols';
 import { useTexture } from "@react-three/drei";
+import { extend } from '@react-three/fiber';
+import { FontLoader } from 'three/examples/jsm/loaders/FontLoader';
+import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry.js';
+import FiraCodeMedium from "./public/Fira_Code_Medium.json";
 
 const imageUrl = "./assets/icon.png";
+const	kLightColor = 0x4EA5D8;
+
 console.log(`imP: ${image}, source: ${JSON.stringify(RNImage.resolveAssetSource(image))}, uri: ${imageUrl}`);
 
 async function loadYoga() {
@@ -35,6 +41,20 @@ DaBox(props)
   );
 }
 
+function
+Text3D({text, coordinates})
+{
+  const font = new FontLoader().parse(FiraCodeMedium);
+  extend({ TextGeometry });
+
+  return (
+	<mesh position={coordinates} visible>
+	  <textGeometry attach='geometry' args={[text, {font, size: 1, height: 0.001}]} />
+	  <meshStandardMaterial attach='material' color={kLightColor} />
+	</mesh>
+  );
+}
+
 export default function App() {
   const [OrbitControls, events] = useControls();
 
@@ -49,6 +69,7 @@ export default function App() {
           <DaBox />
         </Suspense>
         <UI />
+        <Text3D text={"Howdy!"} coordinates={[-2, -0.5, -0.5]} />
       </Canvas>
     </View>
   );
