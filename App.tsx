@@ -1,36 +1,18 @@
-import React, { Suspense, useRef } from "react";
+import React, { Suspense } from "react";
 import { StyleSheet, View } from "react-native";
-import { Image as RNImage } from "react-native";
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { Canvas, useThree } from "@react-three/fiber";
 import {
   RootContainer,
-  Text,
-  SVG,
-  Box,
   Image,
   Container,
 } from "@coconut-xr/koestlich";
 import loadYogaSync from "yoga-wasm-web";
-import { Mesh, PerspectiveCamera } from "three";
+import { PerspectiveCamera } from "three";
 //@ts-ignore
 import image from "./assets/icon.png";
-import { useTexture } from "@react-three/drei";
 
 async function loadYoga() {
   return (loadYogaSync as any)();
-}
-
-function DaBox(props: any) {
-  const mesh = useRef<Mesh>(null);
-  const texture = useTexture(image);
-  useFrame((state, delta) => (mesh.current!.rotation.y += 0.007));
-
-  return (
-    <mesh {...props} ref={mesh} scale={1}>
-      <boxGeometry args={[0.5, 0.5, 0.04]} />
-      <meshBasicMaterial map={texture} />
-    </mesh>
-  );
 }
 
 export default function App() {
@@ -50,11 +32,7 @@ export default function App() {
         }}
         gl={{ localClippingEnabled: true }}
       >
-        <pointLight intensity={0.5} position={[0, 0, -1]} />
-        <ambientLight intensity={0.5} />
-        <Suspense>
-          <UI />
-        </Suspense>
+        <UI />
       </Canvas>
     </View>
   );
@@ -63,9 +41,11 @@ export default function App() {
 function UI() {
   const ratio = useThree((s) => s.size.width / s.size.height);
   const camera = useThree((s) => s.camera as PerspectiveCamera);
+
   camera.position.set(ratio / 2, -0.5, 0.5);
   camera.fov = 90;
   camera.updateProjectionMatrix();
+
   return (
     <Suspense>
       <RootContainer
@@ -79,14 +59,7 @@ function UI() {
         alignItems="center"
       >
         <Container width="100%" backgroundColor="blue" flexGrow={1}></Container>
-        <Suspense>
-          <Image url={image} height={0.2}></Image>
-        </Suspense>
-        {/*
-          * Move any following lines outside the comment block to test.
-        <Image url={image} flexGrow={1}></Image>
-        <Image url={'./assets/icon.png'} flexGrow={1}></Image>
-          */}
+        <Image url={image} height={0.2}></Image>
       </RootContainer>
     </Suspense>
   );
