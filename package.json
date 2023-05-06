@@ -10,20 +10,16 @@
   "type": "module",
   "dependencies": {
     "@coconut-xr/koestlich": "^0.0.10",
-    "@expo/webpack-config": "^0.17.2",
-    "@react-three/drei": "^9.43.3",
     "@react-three/fiber": "^8.9.1",
-    "expo": "~47.0.8",
+    "expo": "~47.0.14",
     "expo-gl": "~12.0.0",
     "expo-three": "7.0.0",
-    "r3f-native-orbitcontrols": "^1.0.6",
     "react": "18.1.0",
     "react-dom": "^18.1.0",
     "react-native": "0.70.5",
     "react-native-web": "^0.18.10",
-    "react-reconciler": "0.29.0",
-    "scheduler": "0.23.0",
-    "three": "^0.146.0",
+    "three": "^0.147.0",
+    "three-stdlib": "^2.21.8",
     "yoga-wasm-web": "^0.3.3"
   },
   "devDependencies": {
